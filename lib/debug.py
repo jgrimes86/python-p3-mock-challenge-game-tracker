@@ -8,4 +8,12 @@ from classes.many_to_many import Result
 if __name__ == '__main__':
     print("HELLO! :) let's debug :vibing_potato:")
 
-    ipdb.set_trace()
+
+g1 = Game("Pacman")
+g2 = Game("Tetris")
+
+u1 = Player("Trogdor")
+
+
+
+ipdb.set_trace()
