@@ -20,10 +20,10 @@ class Game:
             raise Exception("Can't change game title.")
 
     def results(self):
-        pass
+        return [result for result in Result.all if result.game == self]
 
     def players(self):
-        pass
+        return list({result.player for result in self.results()})
 
     def average_score(self, player):
         pass
@@ -49,10 +49,10 @@ class Player:
         return f"<Player: {self.username}>"
 
     def results(self):
-        pass
+        return [result for result in Result.all if result.player == self]
 
     def games_played(self):
-        pass
+        return list({result.game for result in self.results()})
 
     def played_game(self, game):
         pass
@@ -63,10 +63,14 @@ class Player:
 
 
 class Result:
+
+    all = []
+
     def __init__(self, player, game, score):
         self.player = player
         self.game = game
         self.score = score
+        Result.all.append(self)
 
     def __repr__(self):
         return f"<Result: {self.player.username}'s score in {self.game.title} is {self.score}>"
@@ -84,3 +88,25 @@ class Result:
                 raise Exception("Score must be a number from 1 to 5000.")
         else:
             raise Exception("Cannot change score.")
+
+    @property
+    def player(self):
+        return self._player
+    
+    @player.setter
+    def player(self, new_player):
+        if isinstance(new_player, Player):
+            self._player = new_player
+        else:
+            raise Exception("Player must be a Player class instance.")
+    
+    @property
+    def game(self):
+        return self._game
+    
+    @game.setter
+    def game(self, new_game):
+        if isinstance(new_game, Game):
+            self._game = new_game
+        else:
+            raise Exception("Game must be a Game class instance.")

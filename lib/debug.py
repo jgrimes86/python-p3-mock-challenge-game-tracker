@@ -11,8 +11,15 @@ if __name__ == '__main__':
 
 g1 = Game("Pacman")
 g2 = Game("Tetris")
+g3 = Game("Mario Kart")
 
-u1 = Player("Trogdor")
+p1 = Player("Trogdor")
+p2 = Player("Cptn Kirk")
+
+r1 = Result(p1, g1, 350)
+r2 = Result(p1, g2, 19)
+r3 = Result(p1, g2, 12)
+r4 = Result(p2, g2, 3000)
 
 
 
