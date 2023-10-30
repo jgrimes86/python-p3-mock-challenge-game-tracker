@@ -26,7 +26,12 @@ class Game:
         return list({result.player for result in self.results()})
 
     def average_score(self, player):
-        pass
+        player_results = [result.score for result in self.results() if result.player == player]
+        num_of_results = len(player_results)
+        if num_of_results == 0:
+            return 0
+        else:
+            return sum(player_results, 0) / num_of_results
 
 
 
@@ -51,14 +56,33 @@ class Player:
     def results(self):
         return [result for result in Result.all if result.player == self]
 
+    def all_game_plays(self):
+        return [result.game for result in self.results()]
+
     def games_played(self):
-        return list({result.game for result in self.results()})
+        return list(set(self.all_game_plays()))
 
     def played_game(self, game):
-        pass
+        if game in self.games_played():
+            return True
+        else:
+            return False
 
     def num_times_played(self, game):
-        pass
+        return self.all_game_plays().count(game)
+
+    @classmethod
+    def highest_scored(cls, game):
+        best_player = []
+        high_average = 0
+        for player in game.players():
+            if game.average_score(player) > high_average:
+                best_player = player
+                high_average = game.average_score(player)
+        if best_player == []:
+            return None
+        else:
+            return best_player
 
 
 
